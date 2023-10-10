@@ -2,9 +2,19 @@ package jp.ac.it_college.std.s22026.asynccoroutinesample
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.annotation.UiThread
+import androidx.annotation.WorkerThread
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import jp.ac.it_college.std.s22026.asynccoroutinesample.databinding.ActivityMainBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.json.JSONObject
+import java.net.HttpURLConnection
+import java.net.SocketTimeoutException
+import java.net.URL
 
 class MainActivity : AppCompatActivity() {
     companion object {
@@ -31,6 +41,47 @@ class MainActivity : AppCompatActivity() {
 
     @UiThread
     private fun receiveWeatherInfo(q: String) {
+        lifecycleScope.launch {
+            val url = "$WEATHER_INFO_URL&q=$q&appid=$APP_ID"
+            val result = weatherInfoBackgroundRunner(url)
+            showWeatherInfo(result)
+        }
+    }
 
+    @WorkerThread
+    private suspend fun weatherInfoBackgroundRunner(urlString: String): String {
+        return withContext(Dispatchers.IO) {
+            val url = URL(urlString)
+            val con = url.openConnection() as HttpURLConnection
+            con.apply {
+                connectTimeout = 1000
+                readTimeout = 1000
+                requestMethod = "GET"
+            }
+            try {
+                con.connect()
+                val result = con.inputStream.reader().readText()
+                con.disconnect()
+                result
+            } catch (ex: SocketTimeoutException) {
+                Log.w("DEBUG_TAG", "通信タイムアウト", ex)
+                ""
+            }
+        }
+    }
+
+    @UiThread
+    private fun showWeatherInfo(result: String) {
+        val root = JSONObject(result)
+        val cityName = root.getString("name")
+        val coord = root.getJSONObject("coord")
+        val latitude = coord.getDouble("lat")
+        val longitude = coord.getDouble("lon")
+        val weatherArray = root.getJSONArray("weather")
+        val current = weatherArray.getJSONObject(0)
+        val weather = current.getString("description")
+        // 以下、表示処理
+        binding.tvWeatherTelop.text = getString(R.string.tv_telop, cityName)
+        binding.tvWeatherDesc.text = getString(R.string.tv_desc, weather, latitude, longitude)
     }
 }
