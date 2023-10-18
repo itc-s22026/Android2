@@ -4,10 +4,10 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import jp.ac.it_college.std.s22026.servicesample.databinding.ActivityMainBinding
 
@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
             if (isGranted) {
-                Log.i("SERVICE_SAMPLE", "通知の権限もらえた")
+                Log.i("SERVICE_SAMPLE", "通知の権限がもらえた")
                 startSoundManagerService()
             } else {
                 Log.i("SERVICE_SAMPLE", "通知の権限がもらえなかった")
@@ -31,6 +31,13 @@ class MainActivity : AppCompatActivity() {
 
         binding.btPlay.setOnClickListener { startSoundManagerService() }
         binding.btStop.setOnClickListener { stopSoundManagerService() }
+
+        // 通知から起動されていたらやりたいこと書く
+        val fromNotification = intent.getBooleanExtra("fromNotification", false)
+        if (fromNotification) {
+            binding.btPlay.isEnabled = false
+            binding.btStop.isEnabled = true
+        }
     }
 
     private fun startSoundManagerService() {
@@ -48,11 +55,10 @@ class MainActivity : AppCompatActivity() {
         stopService(intent)
         binding.btPlay.isEnabled = true
         binding.btStop.isEnabled = false
-        notificationPermissionRequest()
     }
 
     private fun notificationPermissionRequest(): Boolean {
-        // Android 13(API 33)未満なら無条件で　true 返して何もしない
+        // Android 13(API 33)未満なら無条件で true 返して何もしない
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) return true
 
         // 以下は権限の有無をチェック。
@@ -67,7 +73,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS) -> {
-                true
+                false
             }
 
             else -> {
@@ -77,6 +83,5 @@ class MainActivity : AppCompatActivity() {
                 false
             }
         }
-
     }
 }
