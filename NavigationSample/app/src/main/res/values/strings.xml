@@ -5,4 +5,8 @@
     <string name="title_home">ホーム</string>
     <string name="next">次へ</string>
     <string name="second">セカンド</string>
+    <string name="choice1">選択肢1</string>
+    <string name="choice2">選択肢2</string>
+    <string name="choice3">選択肢3</string>
+    <string name="choice4">選択肢4</string>
 </resources>
