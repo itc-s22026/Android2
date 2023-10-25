@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace = "jp.ac.it_college.std.s22026.navigationsample"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "jp.ac.it_college.std.s22026.navigationsample"
         minSdk = 29
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
