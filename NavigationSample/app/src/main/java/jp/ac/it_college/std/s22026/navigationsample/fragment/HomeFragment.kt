@@ -39,7 +39,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun toNext() {
-        findNavController().navigate(R.id.action_homeFragment_to_secondFragment)
+        val action = HomeFragmentDirections.actionHomeFragmentToSecondFragment()
+        findNavController().navigate(action)
     }
 }
 
