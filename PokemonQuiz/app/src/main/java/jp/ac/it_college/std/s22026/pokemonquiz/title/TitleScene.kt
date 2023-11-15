@@ -1,8 +1,8 @@
 package jp.ac.it_college.std.s22026.pokemonquiz.title
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -18,11 +18,13 @@ import jp.ac.it_college.std.s22026.pokemonquiz.R
 import jp.ac.it_college.std.s22026.pokemonquiz.ui.theme.PokemonQuizTheme
 
 @Composable
-fun TitleScene(modifier: Modifier = Modifier) {
+fun TitleScene(modifier: Modifier = Modifier, onTitleClick: () -> Unit = {}) {
     Surface(modifier) {
         // 念の為
         Column (
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxSize()
+                .clickable(onClick = onTitleClick),
             horizontalAlignment = Alignment.CenterHorizontally
         ){
             Text(
