@@ -7,4 +7,5 @@
     <string name="who">だーれだ？</string>
     <string name="to_generation">世代選択へ</string>
     <string name="to_title">タイトルへ</string>
+    <string name="loading">データダウンロード中</string>
 </resources>

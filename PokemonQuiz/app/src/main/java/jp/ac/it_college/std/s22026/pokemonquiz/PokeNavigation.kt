@@ -1,6 +1,7 @@
 package jp.ac.it_college.std.s22026.pokemonquiz
 
 import android.content.Context
+import android.util.Log
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
@@ -16,6 +17,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.intPreferencesKey
+import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -29,14 +35,26 @@ import jp.ac.it_college.std.s22026.pokemonquiz.quiz.QuizScene
 import jp.ac.it_college.std.s22026.pokemonquiz.result.ResultScene
 import jp.ac.it_college.std.s22026.pokemonquiz.title.TitleScene
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.temporal.ChronoUnit
+import kotlin.math.log
 
+
+// Preferences DataStore を使えるようにする
+val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "pokeApi")
 object Destinations {
     const val TITLE = "title"
     const val GENERATION = "generation_select"
     const val QUIZ = "quiz/{order}"
     const val RESULT = "result"
+    const val DOWNLOAD = "data_do"
 }
 
 @OptIn(ExperimentalMaterial3Api::class)     // 比較的新しい実験的な機能を使うときに指定するらしい。
@@ -78,7 +96,11 @@ fun PokeNavigation(
                 titleText = ""
                 TitleScene(
                     onTitleClick = {
-                        navController.navigate(Destinations.GENERATION)
+                        if (isReadyData(context)) {
+                            navController.navigate(Destinations.GENERATION)
+                        } else {
+                            navController.navigate(Destinations)
+                        }
                     }
                 )
             }
@@ -150,6 +172,18 @@ fun PokeNavigation(
             }
         }
     }
+}
+
+fun isReadyData(context: Context) {
+    // 直近のデータ取得日を DataStore から取得する
+    val LAST_UPDATED_AT = stringPreferencesKey("last_updated_at")
+    val lastUpdatedAtStringFlow: Flow<String> = context.dataStore.data
+        .map {
+            it[LAST_UPDATED_AT] ?: LocalDate.MIN.toString()
+        }
+    // LocalDateTime に変換
+    val lastUpdatedAt = runBlocking { LocalDateTime.parse(lastUpdatedAtStringFlow.first()) }
+    return ChronoUnit.MONTHS.between(lastUpdatedAt, LocalDateTime.now()) == 0L
 }
 
 suspend fun generateQuizData(context: Context, generation: Int): List<PokeQuiz> {
