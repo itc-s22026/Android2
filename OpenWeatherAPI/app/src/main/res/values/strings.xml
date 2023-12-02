@@ -1,20 +1,19 @@
 <resources>
-    <string name="app_name">天気情報</string>
-    <string name="tv_telop">%1$1sの天気</string>
-    <string name="tv_weather_main">天気は%1$sです。</string>
-    <!--    <string name="tv_weather_icon">天気アイコン</string>-->
-    <string name="tv_temp">気温は%1#sです。</string>
-    <string name="tv_feels_like">体感気温は%1$sです。</string>
-    <string name="tv_grnd_level">気圧は%1$sです。</string>
-    <string name="tv_humidity">湿度は%1$sです。</string>
-    <string name="tv_wind_speed">風速は%1$sです。</string>
-    <string name="tv_wind_deg">風向は%1$sです。</string>
-    <string name="tv_wind_gust">瞬間風速は%1$sです。</string>
-    <string name="tv_pop">直近3時間の積雪量は%1$sです。</string>
-    <string name="tv_d">予測時刻は%1$sです。</string>
+    <string name="app_name">天気予報</string>
 
-    <string name="tv_winfo_title">お天気詳細</string>
-    <string name="tv_desc">現在は%1$sです。</string>
+    <string name="forecast_time">時間: %1$s </string>
+    <string name="temperature">気温: %1$s ℃</string>
+    <string name="feels_like">体感気温: %1$s ℃</string>
+    <string name="pressure">気圧: %1$s PA</string>
+    <string name="humidity">湿度: %1$d %%</string>
+    <string name="weather_description">天気: %1$s</string>
+    <string name="wind_speed">風速: %1$s m/s</string>
+    <string name="wind_direction">風向: %1$s kt</string>
+    <string name="precipitation">降水確率: %1$s %%</string>
+    <string name="snowfall">直近3時間の積雪量: %1$s cm</string>
+    <string name="tv_telop">%1$sの天気</string>
+
+
 
 
 

@@ -1,12 +1,17 @@
 package jp.ac.it_college.std.s22026.openweatherapi
 
+
 data class City(
     val CityName: String,
     val CityId: Int,
-)
+) {
+    override fun toString(): String {
+        return CityName
+    }
+}
 
 val cityList = listOf(
-    City("北海道", 2130037),
+    City("北海道(札幌)", 2130037),
     City("青森", 2130658),
     City("岩手(盛岡)", 2111834),
     City("宮城(仙台)",  2111149),
