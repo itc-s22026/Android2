@@ -1,0 +1,69 @@
+<resources>
+    <string name="app_name">天気予報</string>
+
+    <string name="forecast_time">時間: %1$s </string>
+    <string name="temperature">気温: %1$s ℃</string>
+    <string name="feels_like">体感気温: %1$s ℃</string>
+    <string name="pressure">気圧: %1$s PA</string>
+    <string name="humidity">湿度: %1$s %%</string>
+    <string name="weather_description">天気: %1$s</string>
+    <string name="wind_speed">風速: %1$s m/s</string>
+    <string name="wind_direction">風向: %1$s kt</string>
+    <string name="precipitation">降水確率: %1$s %%</string>
+    <string name="snowfall">直近3時間の積雪量: %1$s cm</string>
+    <string name="tv_telop">%1$sの天気</string>
+
+
+
+
+
+    <string-array name="spinner_items">
+        <item>北海道(札幌)</item>
+        <item>青森</item>
+        <item>岩手(盛岡)</item>
+        <item>宮城(仙台)</item>
+        <item>秋田</item>
+        <item>山形</item>
+        <item>福島</item>
+        <item>茨城(水戸)</item>
+        <item>栃木(宇都宮)</item>
+        <item>群馬(前橋)</item>
+        <item>埼玉(さいたま)</item>
+        <item>千葉</item>
+        <item>東京</item>
+        <item>神奈川(横浜)</item>
+        <item>新潟</item>
+        <item>富山</item>
+        <item>石川(金沢)</item>
+        <item>福井</item>
+        <item>山梨(甲府)</item>
+        <item>長野</item>
+        <item>岐阜</item>
+        <item>静岡</item>
+        <item>愛知(名古屋)</item>
+        <item>三重(津)</item>
+        <item>滋賀(大津)</item>
+        <item>京都</item>
+        <item>大阪</item>
+        <item>兵庫</item>
+        <item>奈良</item>
+        <item>和歌山</item>
+        <item>鳥取</item>
+        <item>島根(松江)</item>
+        <item>岡山</item>
+        <item>広島</item>
+        <item>山口</item>
+        <item>徳島</item>
+        <item>香川(高松)</item>
+        <item>愛媛(松山)</item>
+        <item>高知</item>
+        <item>福岡</item>
+        <item>佐賀</item>
+        <item>長崎</item>
+        <item>熊本</item>
+        <item>大分</item>
+        <item>宮崎</item>
+        <item>鹿児島</item>
+        <item>沖縄(那覇)</item>
+    </string-array>
+</resources>
