@@ -1,5 +1,6 @@
 package jp.ac.it_college.std.s22026.openweatherapi
 
+
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -39,17 +40,30 @@ class MainActivity : AppCompatActivity() {
         textSelected = findViewById(R.id.textSelected)
         buttonReset = findViewById(R.id.buttonReset)
 
-        // Set up spinner adapter
-        val array = arrayOf(
-            "未選択", "北海道(札幌)", "青森", "岩手(盛岡)", "宮城(仙台)", "秋田", "山形", "福島",
-            "茨城(水戸)", "栃木(宇都宮)", "群馬(前橋)", "埼玉(さいたま)", "千葉", "東京", "神奈川(横浜)", "新潟",
-            "富山", "石川(金沢)", "福井", "山梨(甲府)", "長野", "岐阜", "静岡", "愛知(名古屋)",
-            "三重(津)", "滋賀(大津)", "京都", "大阪", "兵庫", "奈良", "和歌山", "鳥取",
-            "島根(松江)", "岡山", "広島", "山口", "徳島", "香川(高松)", "愛媛(松山)", "高知",
-            "福岡", "佐賀", "長崎", "熊本", "大分", "宮崎", "鹿児島", "沖縄(那覇)"
-        )
-        val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, array)
+//         Set up spinner adapter
+//        val array = arrayOf(
+//            "未選択", "北海道(札幌)", "青森", "岩手(盛岡)", "宮城(仙台)", "秋田", "山形", "福島",
+//            "茨城(水戸)", "栃木(宇都宮)", "群馬(前橋)", "埼玉(さいたま)", "千葉", "東京", "神奈川(横浜)", "新潟",
+//            "富山", "石川(金沢)", "福井", "山梨(甲府)", "長野", "岐阜", "静岡", "愛知(名古屋)",
+//            "三重(津)", "滋賀(大津)", "京都", "大阪", "兵庫", "奈良", "和歌山", "鳥取",
+//            "島根(松江)", "岡山", "広島", "山口", "徳島", "香川(高松)", "愛媛(松山)", "高知",
+//            "福岡", "佐賀", "長崎", "熊本", "大分", "宮崎", "鹿児島", "沖縄(那覇)"
+//        )
+        fun getCityId(cityName: String?): Int {
+            val city = cityList.find { it.CityName == cityName }
+            Log.d(MainActivity.DEBUG_TAG, "City found: $cityName, CityId: ${city?.CityId}")
+            return city?.CityId ?: -1
+        }
+
+        val selectedCity = intent.getStringExtra("selectedCity")
+        val cityId = getCityId(selectedCity)
+
+// Assuming cityList is a list of objects with CityId property
+        val cityIdList = cityList.mapNotNull { it.CityId }
+
+        val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, cityList)
         spinner.adapter = arrayAdapter
+
 
         // Set up button click listener
         buttonSetting.setOnClickListener {

@@ -5,7 +5,7 @@
     <string name="temperature">気温: %1$s ℃</string>
     <string name="feels_like">体感気温: %1$s ℃</string>
     <string name="pressure">気圧: %1$s PA</string>
-    <string name="humidity">湿度: %1$d %%</string>
+    <string name="humidity">湿度: %1$s %%</string>
     <string name="weather_description">天気: %1$s</string>
     <string name="wind_speed">風速: %1$s m/s</string>
     <string name="wind_direction">風向: %1$s kt</string>
